@@ -1,0 +1,9 @@
+openai
+langchain-openai
+langchain
+langchain-community
+python-dotenv
+requests
+tiktoken
+flask
+flask-cors
