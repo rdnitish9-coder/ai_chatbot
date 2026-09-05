@@ -7,8 +7,4 @@ langchain
 langchain-community
 python-dotenv
 tiktoken
-dotenv
-langchain.chat_models
-langchain_core.messages
-os
-uv
+
