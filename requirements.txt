@@ -11,3 +11,4 @@ dotenv
 langchain.chat_models
 langchain_core.messages
 os
+uv
