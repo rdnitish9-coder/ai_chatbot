@@ -12,7 +12,7 @@ CORS(app)
 
 # Direct ChatOpenAI wrapper use kar standard OpenRouter headers ke saath
 model = ChatOpenAI(
-    model="meta-llama/llama-3.3-70b-instruct:free",  # Working free model on OpenRouter
+    model="liquid/lfm-2.5-2.6b:free",  # Working free model on OpenRouter
     openai_api_base="https://openrouter.ai/api/v1",
     openai_api_key=os.getenv("OPENROUTER_API_KEY"),
     default_headers={
