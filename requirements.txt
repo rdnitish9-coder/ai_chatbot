@@ -7,4 +7,6 @@ langchain
 langchain-community
 python-dotenv
 tiktoken
+gunicorn
+
 
