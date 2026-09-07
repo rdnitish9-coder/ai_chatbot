@@ -1,3 +1,6 @@
+@app.route('/', methods=['GET'])
+def health_check():
+    return jsonify({'status': 'Server is running', 'message': 'Cyber Core AI Backend Active'}), 200
 import os
 import requests
 from flask import Flask, request, jsonify
