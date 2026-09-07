@@ -1,8 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
-from langchain.chat_models import init_chat_model
-from langchain_core.messages import AIMessage, SystemMessage, HumanMessage
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import SystemMessage, HumanMessage
 import os
 
 load_dotenv()
@@ -10,11 +10,15 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
-model = init_chat_model(
-    model="liquid/lfm-2.5-2.6b:free",
-    model_provider="openai",
+# Direct ChatOpenAI wrapper use kar standard OpenRouter headers ke saath
+model = ChatOpenAI(
+    model="meta-llama/llama-3.3-70b-instruct:free",  # Working free model on OpenRouter
     openai_api_base="https://openrouter.ai/api/v1",
-    api_key=os.getenv("OPENROUTER_API_KEY")
+    openai_api_key=os.getenv("OPENROUTER_API_KEY"),
+    default_headers={
+        "HTTP-Referer": "https://render.com",
+        "X-Title": "NEIGHBOUR-CORE"
+    }
 )
 
 @app.route('/api/chat', methods=['POST'])
@@ -26,13 +30,11 @@ def chat():
         if not user_question:
             return jsonify({"error": "Prompt is required"}), 400
 
-        # System prompt + Dynamic User question list
         messages = [
             SystemMessage(content="You are a helpful AI assistant."),
             HumanMessage(content=user_question)
         ]
         
-        # Model invoke
         response = model.invoke(messages)
 
         return jsonify({"reply": response.content}), 200
